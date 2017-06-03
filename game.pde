@@ -51,7 +51,11 @@ void keyPressed(){
       notWall = false;
     }
   }
-  if (notWall){
+  boolean inBounds = true;
+  if (nextPos.x < 0 || nextPos.x > cs - 1 || nextPos.y < 0 || nextPos.y > cs - 1){
+    inBounds = false;
+  }
+  if (notWall && inBounds){
     pos = nextPos;
   }
 }
