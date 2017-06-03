@@ -1,16 +1,17 @@
 ArrayList<PVector> walls = new ArrayList<PVector>();
 ArrayList<PVector> apples =  new ArrayList<PVector>();
 
-int cs = 20;
+int tileSize = 20;
+int cs = 400/tileSize;
 PVector pos;
 
 void setup(){
   size (400,400);
   ellipseMode(CORNER);
-  for (int i = 0; i < 100; i++) {
+  for (int i = 0; i < cs*cs/4; i++) {
     walls.add(new PVector(int(random(cs)),int(random(cs))));
   }
-  for (int i = 0; i < 15;) {
+  for (int i = 0; i < cs*cs/10;) {
     PVector apple = new PVector(int(random(cs)),int(random(cs)));
     if(!walls.contains(apple)){
       apples.add(apple);
@@ -22,24 +23,24 @@ void setup(){
 
 void draw(){
   background(255);
-  for (int i = 0; i < width; i++) {
-    line (i*cs, 0, i*cs, height);
+  for (int i = 0; i < cs; i++) {
+    line (i*tileSize, 0, i*tileSize, height);
   }
-  for (int i = 0; i < height; i++) {
-    line (0, i*cs, width, i*cs);
+  for (int i = 0; i < cs; i++) {
+    line (0, i*tileSize, width, i*tileSize);
   }
   for(int i = 0; i < walls.size(); i++) {
     fill(100);
-    rect(walls.get(i).x*cs,walls.get(i).y*cs, cs,cs);
+    rect(walls.get(i).x*tileSize,walls.get(i).y*tileSize, tileSize,tileSize);
   }
   
   for(int i = 0; i < apples.size(); i++) {
     fill(255,0,0);
-    ellipse(apples.get(i).x*cs,apples.get(i).y*cs, cs,cs);
+    ellipse(apples.get(i).x*tileSize,apples.get(i).y*tileSize, tileSize,tileSize);
   }
 
   fill(0,200,0);
-  rect(cs*pos.x,cs*pos.y,cs,cs);
+  rect(tileSize*pos.x,tileSize*pos.y,tileSize,tileSize);
   
 }
 
