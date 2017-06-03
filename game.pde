@@ -1,14 +1,21 @@
 ArrayList<PVector> walls = new ArrayList<PVector>();
+ArrayList<PVector> apples =  new ArrayList<PVector>();
 
 int cs = 20;
 PVector pos;
 
 void setup(){
   size (400,400);
+  ellipseMode(CORNER);
   for (int i = 0; i < 100; i++) {
-    int rx = int(random(20));
-    int ry = int(random(20));
-    walls.add(new PVector(rx,ry));
+    walls.add(new PVector(int(random(cs)),int(random(cs))));
+  }
+  for (int i = 0; i < 15;) {
+    PVector apple = new PVector(int(random(cs)),int(random(cs)));
+    if(!walls.contains(apple)){
+      apples.add(apple);
+      i++;
+    }
   }
   pos = new PVector(0,0);
 }
@@ -22,12 +29,18 @@ void draw(){
     line (0, i*cs, width, i*cs);
   }
   for(int i = 0; i < walls.size(); i++) {
-    fill(0,255,0);
+    fill(100);
     rect(walls.get(i).x*cs,walls.get(i).y*cs, cs,cs);
   }
+  
+  for(int i = 0; i < apples.size(); i++) {
+    fill(255,0,0);
+    ellipse(apples.get(i).x*cs,apples.get(i).y*cs, cs,cs);
+  }
 
-  fill(255,0,0);
+  fill(0,200,0);
   rect(cs*pos.x,cs*pos.y,cs,cs);
+  
 }
 
 void keyPressed(){
