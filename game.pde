@@ -1,5 +1,4 @@
-ArrayList<Integer> x = new ArrayList<Integer>();
-ArrayList<Integer> y = new ArrayList<Integer>();
+ArrayList<PVector> walls = new ArrayList<PVector>();
 
 int cs = 20;
 PVector pos;
@@ -7,10 +6,9 @@ PVector pos;
 void setup(){
   size (400,400);
   for (int i = 0; i < 100; i++) {
-  int rx = int(random(20));
-  int ry = int(random(20));
-  x.add(rx);
-  y.add(ry);
+    int rx = int(random(20));
+    int ry = int(random(20));
+    walls.add(new PVector(rx,ry));
   }
   pos = new PVector(0,0);
 }
@@ -23,9 +21,9 @@ void draw(){
   for (int i = 0; i < height; i++) {
     line (0, i*cs, width, i*cs);
   }
-  for(int i = 0; i < x.size(); i++) {
+  for(int i = 0; i < walls.size(); i++) {
     fill(0,255,0);
-    rect(x.get(i)*cs,y.get(i)*cs, cs,cs);
+    rect(walls.get(i).x*cs,walls.get(i).y*cs, cs,cs);
   }
 
   fill(255,0,0);
@@ -45,12 +43,7 @@ void keyPressed(){
         nextPos.x = nextPos.x + 1;
     }
   } 
-  boolean notWall = true;
-  for (int i = 0; i < x.size(); i++){
-    if (nextPos.x == x.get(i) && nextPos.y == y.get(i)){
-      notWall = false;
-    }
-  }
+  boolean notWall = !walls.contains(nextPos);
   boolean inBounds = true;
   if (nextPos.x < 0 || nextPos.x > cs - 1 || nextPos.y < 0 || nextPos.y > cs - 1){
     inBounds = false;
