@@ -5,6 +5,7 @@ int tileSize = 20;
 int cs = 400/tileSize;
 PVector pos;
 int score = 0;
+int screen = 0;
 
 void setup(){
   size (400,400);
@@ -12,7 +13,7 @@ void setup(){
   for (int i = 0; i < cs*cs/4; i++) {
     walls.add(new PVector(int(random(cs)),int(random(cs))));
   }
-  for (int i = 0; i < cs*cs/10;) {
+  for (int i = 0; i < cs*cs/20;) {
     PVector apple = new PVector(int(random(cs)),int(random(cs)));
     if(!walls.contains(apple)){
       apples.add(apple);
@@ -44,8 +45,13 @@ void draw(){
   rect(tileSize*pos.x,tileSize*pos.y,tileSize,tileSize);
   
   textSize(20);
-  text("Score: " + score, 300, 0);
-  fill(100,50,50);  
+  text("Score: " + score, 300, 20);
+  fill(100,50,50); 
+  
+  if (screen == 1){
+    textSize(80);
+    text("You won!", 20, 200);
+  }
 }
 
 void keyPressed(){
@@ -73,5 +79,8 @@ void keyPressed(){
   if (eatApple){
     score = score + 100;
     apples.remove(nextPos);
+  }
+  if(apples.size() == 0){
+    screen = 1;
   }
 }
