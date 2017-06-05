@@ -4,6 +4,7 @@ ArrayList<PVector> apples =  new ArrayList<PVector>();
 int tileSize = 20;
 int cs = 400/tileSize;
 PVector pos;
+int score = 0;
 
 void setup(){
   size (400,400);
@@ -42,6 +43,9 @@ void draw(){
   fill(0,200,0);
   rect(tileSize*pos.x,tileSize*pos.y,tileSize,tileSize);
   
+  textSize(20);
+  text("Score: " + score, 300, 0);
+  fill(100,50,50);  
 }
 
 void keyPressed(){
@@ -64,5 +68,10 @@ void keyPressed(){
   }
   if (notWall && inBounds){
     pos = nextPos;
+  }
+  boolean eatApple = apples.contains(nextPos);
+  if (eatApple){
+    score = score + 100;
+    apples.remove(nextPos);
   }
 }
